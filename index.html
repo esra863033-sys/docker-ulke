@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Ülke Bilgi Kartları</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+        }
+
+        select, button {
+            padding: 10px 15px;
+            font-size: 18px;
+            margin: 10px;
+            border-radius: 10px;
+            border: none;
+        }
+
+        .card {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            animation: fade .8s ease;
+        }
+
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        img {
+            width: 180px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .info {
+            font-size: 20px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🌍 Ülke Bilgi Kartları</h1>
+
+    <select id="countrySelect">
+        <option value="turkey">Türkiye</option>
+        <option value="germany">Almanya</option>
+        <option value="japan">Japonya</option>
+        <option value="brazil">Brezilya</option>
+        <option value="egypt">Mısır</option>
+        <option value="canada">Kanada</option>
+        <option value="italy">İtalya</option>
+        <option value="france">Fransa</option>
+    </select>
+
+    <button onclick="getCountry()">Bilgileri Getir</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+async function getCountry() {
+    const country = document.getElementById("countrySelect").value;
+
+    const res = await fetch(`http://localhost:5000/country/${country}`);
+    const data = await res.json();
+
+    const c = data[0];
+
+    document.getElementById("result").innerHTML = `
+        <div class="card">
+            <img src="${c.flags.png}">
+            <h2>${c.name.common}</h2>
+
+            <div class="info">
+                <strong>Başkent:</strong> ${c.capital}<br>
+                <strong>Nüfus:</strong> ${c.population.toLocaleString()}<br>
+                <strong>Bölge:</strong> ${c.region}<br>
+                <strong>Dil:</strong> ${Object.values(c.languages).join(", ")}<br>
+                <strong>Para Birimi:</strong> ${Object.values(c.currencies)[0].name}<br>
+                <a href="${c.maps.googleMaps}" target="_blank" style="color:yellow;">📍 Haritada Göster</a>
+            </div>
+        </div>
+    `;
+}
+</script>
+
+</body>
+</html>
