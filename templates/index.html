@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Kod Eon Ülke Bilgi Merkezi</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<h1>⚡ KOD EON ÜLKE BİLGİ MERKEZİ ⚡</h1>
+
+<div class="search-box">
+    <input id="countryInput" placeholder="Ülke adı gir">
+    <button onclick="search()">ARA</button>
+</div>
+
+<div id="card" class="card hidden">
+    <img id="flag">
+    <h2 id="name"></h2>
+
+    <div class="grid">
+        <div>🏛 Başkent<br><span id="capital"></span></div>
+        <div>👥 Nüfus<br><span id="population"></span></div>
+        <div>🌍 Kıta<br><span id="continent"></span></div>
+        <div>📍 Bölge<br><span id="region"></span></div>
+        <div>💰 Para Birimi<br><span id="currency"></span></div>
+        <div>🗣 Dil<br><span id="language"></span></div>
+    </div>
+
+    <button id="mapBtn">📍 HARİTADA GÖR</button>
+</div>
+
+<script src="/static/script.js"></script>
+</body>
+</html>
